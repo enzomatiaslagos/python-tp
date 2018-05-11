@@ -1,0 +1,42 @@
+"""chicos si ven algo que pueden mejorar, editenlo. Corre bien. dejo el print y el texto que fue con el que lo testeé, cuando lo juntamos todos hay que sacarlo"""
+def listavalida(texto):
+    texto = texto.upper()
+    lista= texto.split(" ")
+    lista_valida =[]
+    for palabra in lista:
+        valida = 0
+        for caracter in palabra:
+            if caracter.isalpha() == False:
+                valida = 1
+        if valida == 0:
+            lista_valida.append(palabra)
+    return sorted(lista_valida)
+
+def diccionario(lista):
+    diccionario={}
+    diccionario[lista[0]] = 0
+    for i in lista:
+        repetida = 0
+        for clave in diccionario:
+            if i == clave:
+                diccionario[clave] = diccionario.get(clave) + 1
+                repetida = 1
+        if repetida == 0:
+            diccionario[i] = 1
+    return (diccionario)
+texto= 'esto es un texto texto texto de de prue3ba prueba JAajaj'
+
+def validacion_palabra_para_jugar(largo_palabra,cantidad_jugadores,diccionario):
+    continuar = 0
+    while continuar == 0:
+        lista_palabra = []
+        for clave in diccionario:
+            if len(clave) == largo_palabra:
+                lista_palabra.append(clave)
+        if len(lista_palabra) == cantidad_jugadores:
+            continuar = 1
+        else:
+            largo_palabra = int(input('ingresar largo palabra: '))
+    return(lista_palabra)
+
+print(validacion_palabra_para_jugar(33,2,diccionario(listavalida(texto))))
