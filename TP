@@ -1,8 +1,10 @@
 
 FUNCION PARA CADA TURNO (Hay que ver bien como se une con las otras funciones, porque le pase los parametros como si ya existieran)
+jugadores={nombreJugador:[aciertos, desaciertos, puntos]}
+palabra--> palabra asignada por la funcion random para cada jugador
 
-def turnos(diccionario, palabra):
-    print("Jugador:"diccionarioHACER QUE APAREZCA LA CLAVE)
+def turnos(jugadores, palabra):
+    print("Jugador:"nombre)
     adivinar=palabra.split( )
     aciertos=[]
     adivinadas=0
@@ -23,10 +25,23 @@ def turnos(diccionario, palabra):
                     puntos += 1
                     adivinadas += 1
                     print(aciertos)
-                    letra=input("Ingrese letra:")
+                    if aciertos != adivinar:
+                        letra=input("Ingrese letra:")
+                    else:
+                        puntos+=30
+                        jugadores[nombre]=[adivinadas, desaciertos, puntos]
+                        print("GANADOR:"nombre)
+                        return jugadores
     else:
         puntos=puntos-2
         desaciertos+=1
-        diccionario[nombre]=[adivinadas,desaciertos,puntos]
+        if desaciertos<7:
+            jugadores[nombre]=[adivinadas,desaciertos,puntos]
+        else:
+            jugadores.pop(nombre)
+    return jugadores
+
+
+
 
 
