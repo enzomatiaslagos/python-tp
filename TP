@@ -1,4 +1,6 @@
+
 FUNCION PARA CADA TURNO (Hay que ver bien como se une con las otras funciones, porque le pase los parametros como si ya existieran)
+
 def turnos(diccionario, palabra):
     print("Jugador:"diccionarioHACER QUE APAREZCA LA CLAVE)
     adivinar=palabra.split( )
@@ -9,6 +11,8 @@ def turnos(diccionario, palabra):
     for x in len(adivinar):
     aciertos.append("-")
     letra=input("Ingrese letra:")
+    if letra.isdigit()!= True:
+        letra = input("Error, ingrese una letra valida: ")
     if letra in adivinadas:
         letra=input("Por favor, ingrese una letra que no haya intentado anteriormente:")
     elif:
@@ -24,3 +28,5 @@ def turnos(diccionario, palabra):
         puntos=puntos-2
         desaciertos+=1
         diccionario[nombre]=[adivinadas,desaciertos,puntos]
+
+
