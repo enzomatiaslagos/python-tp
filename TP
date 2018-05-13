@@ -9,7 +9,7 @@ def turnos(jugadores, palabra):
     aciertos=[]
     adivinadas=0
     desaciertos=0
-    puntos=diccionario[nombre][3]
+    puntos=diccionario[nombre][2]
     for x in len(adivinar):
     aciertos.append("-")
     letra=input("Ingrese letra:")
