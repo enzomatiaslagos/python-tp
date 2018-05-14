@@ -21,9 +21,13 @@ def jugadores(cantJugadores):
     for clave, valor in jugadoresYSuOrden.items():
         print("El jugador", clave, "jugara en la posicion", valor)
     return jugadoresYSuOrden
+    
+def listaNombres(jugadoresYSuOrden):
+    nombres = list(jugadoresYSuOrden.keys())
+    return nombres
 
 def asignacionPalabras(listaJugadores, listaPalabras):
-    """Asigna las palabras a los jugadores"""
+    """Devuelve diccionario con las palabras asignadas para cada jugador"""
     jugadoresYPalabra = {}
     for nombre in listaJugadores:
         print(nombre,":")
