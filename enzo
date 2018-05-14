@@ -46,3 +46,28 @@ def asignacionPalabras(listaJugadores, listaPalabras):
         jugadoresYPalabra[nombre] = random.choice(palabrasDelLargo)
     return jugadoresYPalabra
 
+def ordenPuntaje(dicJugadoresPuntajes):
+    """Devuelve diccionario ordenado segun mejor puntaje"""
+    dicJugadoresPuntajes = dict(sorted(dicJugadoresPuntajes.items(), key=lambda x: x[1], reverse= True))
+    return dicJugadoresPuntajes
+
+def ordenNuevo(dicJugadoresPuntajesOrdenados):
+    """Devuelve diccionario con orden para nueva ronda"""
+    jugadores = list(dicJugadoresPuntajesOrdenados.keys())
+    orden = range(1, len(dicJugadoresPuntajesOrdenados) + 1)
+    nuevoOrden = dict(zip(jugadores, orden))
+    print("El nuevo orden es:")
+    for clave, valor in nuevoOrden.items():
+        print("El jugador", clave, "jugara en la posicion", valor)
+    return nuevoOrden
+
+def nuevaRonda():
+    """ Funcion para volver a jugar"""
+    seguir = int(input("Desea jugar nuevamente(1.Si 2.No):"))
+    if seguir == 1:
+        #ACA SE VUELVE A LLAMAR A LAS FUNCIONES QUE DAN ORIGEN AL JUEGO
+        #TOMANDO COMO CANTIDAD DE JUGADORES LA MISMA QUE ANTES, NOMBRES Y
+        #PUNTAJES DEL DICCIONARIO HECHO Y ORDEN TAMBIEN
+        print("Entendido") #ESTE PRINT SE REEMPLAZA POR EL PROGRAMA
+    else:
+        print("HASTA LUEGO")
