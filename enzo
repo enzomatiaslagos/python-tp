@@ -1,0 +1,44 @@
+def numeroJugadores():
+    """Devulve cantidad de jugadores"""
+    seguir = True
+    while seguir:
+        cantJugadores = int(input("Cantidad de jugadores:"))
+        if 2 <= cantJugadores <= 10:
+            seguir = False
+        else:
+            print("Cantidad incorrecta, vuelva a ingresar cantidad de jugadores.")
+    return cantJugadores
+
+def jugadores(cantJugadores):
+    """Devuelve diccionario con el nombre de los jugadores y su orden de juego (que fue dado de manera aleatoria)"""
+    nombreJugadores = []
+    while len(nombreJugadores) != cantJugadores:
+        nombreJugadores.append(str(input("Ingrese nombre y apellido:")).upper())
+    orden = range(1, cantJugadores + 1)
+    import random
+    nombresAleatorios = random.sample(nombreJugadores, cantJugadores)  #Da un orden aleatorio en que fueron ingresados los nombres
+    jugadoresYSuOrden = dict(zip(nombresAleatorios, orden))
+    for clave, valor in jugadoresYSuOrden.items():
+        print("El jugador", clave, "jugara en la posicion", valor)
+    return jugadoresYSuOrden
+
+def asignacionPalabras(listaJugadores, listaPalabras):
+    """Asigna las palabras a los jugadores"""
+    jugadoresYPalabra = {}
+    for nombre in listaJugadores:
+        print(nombre,":")
+        seguir = True
+        while seguir:
+            largo = int(input("Ingrese largo de la palabra, mayor a 5, con la que quiere jugar:"))
+            if largo >= 5:
+                seguir = False
+            else:
+                print("Ingrese otro largo, no existen palabras para el largo ingresado.")
+        palabrasDelLargo = []
+        for palabra in listaPalabras:
+            if len(palabra) == largo:
+                palabrasDelLargo.append(palabra)
+        import random
+        jugadoresYPalabra[nombre] = random.choice(palabrasDelLargo)
+    return jugadoresYPalabra
+
