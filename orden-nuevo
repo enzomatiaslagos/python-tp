@@ -1,0 +1,26 @@
+def ordenPuntaje(dicJugadoresPuntajes):
+    """En caso de que gane la maquina, devuelve diccionario ordenado segun mejor puntaje"""
+    dicJugadoresPuntajes = dict(sorted(dicJugadoresPuntajes.items(), key=lambda x: x[1], reverse= True))
+    return dicJugadoresPuntajes
+
+def ordenNuevo(dicJugadoresPuntajesOrdenados):
+    """En caso de que gane la maquina, devuelve diccionario con orden para nueva ronda"""
+    jugadores = list(dicJugadoresPuntajesOrdenados.keys())
+    orden = range(1, len(dicJugadoresPuntajesOrdenados) + 1)
+    nuevoOrden = dict(zip(jugadores, orden))
+    print("El nuevo orden es:")
+    for clave, valor in nuevoOrden.items():
+        print("El jugador", clave, "jugara en la posicion", valor)
+    return nuevoOrden
+
+def ordenGanadorMasPerdedor(diccionarioGanador, diccionarioPerdedores):
+    """Otorga diccionario con jugadores y su nuevo orden en caso de que haya un ganador y quieran volver a jugar"""
+    diccionarioPerdedores = dict(sorted(diccionarioPerdedores.items(), key=lambda x: x[1], reverse= True))
+    nuevoDiccionario = diccionarioGanador.update(diccionarioPerdedores)
+    jugadores = list(nuevoDiccionario.keys())
+    orden = range(1, len(nuevoDiccionario) + 1)
+    nuevoOrden = dict(zip(jugadores, orden))
+    print("El nuevo orden es:")
+    for clave, valor in nuevoOrden.items():
+        print("El jugador", clave, "jugara en la posicion", valor)
+    return nuevoOrden
