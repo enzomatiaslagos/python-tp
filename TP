@@ -73,10 +73,11 @@ def listaNombres(jugadoresYSuOrden):
     return nombres
 
 def largoPalabra():
+
     seguir = True
     while seguir:
-        largo = int(input("Ingrese largo de la palabra, mayor a 5, con la que quiere jugar:"))
-        if largo >= 5:
+        largo = int(input("Ingrese largo de la palabra, entre 5 y 8, con la que quiere jugar:"))
+        if 5 <= largo <= 8:
             seguir = False
         else:
             print("Ingrese otro largo, no existen palabras para el largo ingresado.")
