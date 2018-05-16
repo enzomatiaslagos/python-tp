@@ -2543,7 +2543,14 @@ def ordenGanadorMasPerdedor(diccionarioGanador, diccionarioPerdedores):
 
 print("Cargando juego")
 diccionarioPalabrasCant = diccionario(listavalida(elimina_caracteres(remplazarAcentos(textoNuevo(obtener_texto())))))
+for clave, valor in diccionarioPalabrasCant.items():
+    print("La clave", clave, "aparece", valor, "veces")
+    print(" ")
+    import time
+    time.sleep(0.0005)
+print(" ")
 print("Juego cargado")
+print(" ")
 cantidad = numeroJugadores()
 dicc_jugadores_orden = jugadores(cantidad)
 lista_nombres = listaNombres(dicc_jugadores_orden)
@@ -2588,4 +2595,3 @@ while seguir:
         dicc_resultados.update(dicc_ganador)
         dicc_resultados.update(dicc_ordenar)
     print(dicc_resultados)
-
