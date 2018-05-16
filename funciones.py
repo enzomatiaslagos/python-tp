@@ -56,7 +56,7 @@ def palabra_a_adivinar(jugadoresYPalabra,largo):
         lista_aciertos.append("-")
     for jugadores in jugadoresYPalabra:
         diccionario[jugadores] = [jugadoresYPalabra[jugadores],lista_aciertos,0,0,0,[]]
-        """posiciones={nombre:palabra,palabra_adivinada,puntos,intentos,desaciertos,letras_ingresadas}"""
+        """posiciones={nombre:palabra,palabra_adivinada,puntos,aciertos,desaciertos,letras_ingresadas}"""
     return diccionario
 
 def ingreso_letra(letras_anteriores):
@@ -80,7 +80,6 @@ def diccionario_a_variable(diccionario,jugador):
     letras_ingresadas = diccionario[jugador][5]
     return palabra,lista_aciertos,puntos,intentos,desaciertos,letras_ingresadas
 
-def
 
 def posicion_adivinada(palabra,letra,lista_aciertos):
     lista_palabra = []
@@ -134,13 +133,31 @@ def diccionario_resultados(lista_nombres):
         diccionario[nombres] = [0,0,0]
     return diccionario
 
-def autoriza_jugar(desaciertos,intentos):
+def autoriza_jugar(desaciertos,aciertos):
+    intentos = desaciertos + aciertos
     if (desaciertos == 7 or intentos == 8):
         return False
     else:
         return True
+#creo diccionario para cuando el ganador es un jugador
+def diccionario_ganador_jugador(clave,diccionario_jugadores):
+    dicc_otros_jugadores = {}
+    for jugador in diccionario_jugadores:
+        if jugador != clave:
+            dicc_otros_jugadores[jugador] = [diccionario_jugadores[jugador][2],diccionario_jugadores[jugador][3],diccionario_jugadores[jugador][4]]
+    return dicc_otros_jugadores
 
+def diccionario_gana_maquina(diccionario_jugadores):
+    dicc_resultados = {}
+    for jugador in diccionario_jugadores:
+        dicc_resultados[jugador] = [diccionario_jugadores[jugador][2],diccionario_jugadores[jugador][3],diccionario_jugadores[jugador][4]]
+    return dicc_resultados
 
+def creacion_diccionario_resultados(diccionario_jugadores):
+    dicc_resultados = {}
+    for jugador in diccionario_jugadores:
+        dicc_resultados[jugador] = [0,0,0]
+    return dicc_resultados
 cantidad = numeroJugadores()
 dicc_jugadores_orden = jugadores(cantidad)
 lista_nombres = listaNombres(dicc_jugadores_orden)
@@ -149,26 +166,44 @@ largo = largoPalabra()
 """validacion joaco para jugar"""
 jugadores_palabra = asignacionPalabra(listaNombres(),"""joaco""",largo)
 diccionario_jugadores = palabra_a_adivinar(jugadores_palabra,largo)
+dicc_resultados = creacion_diccionario_resultados()
 seguir = True
 gana = False
+
 while seguir:
+    dicc_ganador = {}
+    dicc_ordenar = {}
+    dicc_gana_maquina = {}
     while gana_maquina(diccionario_jugadores,cantidad) == False and gana == False:
         for clave in diccionario_jugadores:
-            while gana == False:
-            palabra,lista_aciertos, puntos, intentos, desaciertos, letras_anteriores = diccionario_a_variable(diccionario_jugadores,clave)
-            vuelve_jugar = True
-            while autoriza_jugar(desaciertos,intentos) and vuelve_jugar:
-                letra = ingreso_letra(letras_anteriores)
-                letras_anteriores.append(letra)
-                lista_aciertos = posicion_adivinada(palabra,letra,lista_aciertos)
-                suma_puntos(puntos,letra,palabra)
-                intentos += 1
-                if aciertos_o_desaciertos(letra,palabra) == False:
-                    vuelve_jugar = False
-                    desaciertos += 1
-                else:
-                    if ganador(palabra,lista_aciertos):
+            if gana == False:
+                palabra,lista_aciertos, puntos, aciertos, desaciertos, letras_anteriores = diccionario_a_variable(diccionario_jugadores,clave)
+                vuelve_jugar = True
+                while autoriza_jugar(desaciertos,aciertos) and vuelve_jugar:
+                    letra = ingreso_letra(letras_anteriores)
+                    letras_anteriores.append(letra)
+                    lista_aciertos = posicion_adivinada(palabra,letra,lista_aciertos)
+                    suma_puntos(puntos,letra,palabra)
+                    if aciertos_o_desaciertos(letra,palabra) == False:
                         vuelve_jugar = False
-                        gana = True
-                        print("el ganador es: ", clave)
+                        desaciertos += 1
+                    else:
+                        aciertos += 1
+                        if ganador(palabra,lista_aciertos):
+                            vuelve_jugar = False
+                            gana = True
+                            print("el ganador es: ", clave)
+                            dicc_ganador[clave] = [puntos,aciertos,desaciertos]
+                            dicc_ordenar = diccionario_ganador_jugador(clave,diccionario_jugadores)
+
+    if gana_maquina(diccionario_jugadores,cantidad):
+        dicc_gana_maquina = diccionario_gana_maquina(diccionario_jugadores)
+        dicc_resultados.update(dicc_gana_maquina)
+    else:
+        dicc_resultados.update(dicc_ganador)
+        dicc_resultados.update(dicc_ordenar)
+    print(dicc_resultados)
+
+
+
 
