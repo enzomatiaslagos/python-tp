@@ -2488,10 +2488,10 @@ def suma_cantidad_de_caractes(variable_a_sumar,letra,palabra):
 
 def suma_puntos(puntos,letra,palabra,lista_aciertos):
     """asigna los puntos a cada participante en el turno"""
-    if letra in palabra:
-        puntos = suma_cantidad_de_caractes(puntos,letra,palabra)
-    elif ganador(palabra,lista_aciertos):
+    if ganador(palabra,lista_aciertos):
         puntos += 30
+    elif letra in palabra:
+        puntos = suma_cantidad_de_caractes(puntos,letra,palabra)
     else:
         puntos -= 2
     return puntos
@@ -2509,20 +2509,30 @@ def autoriza_jugar(desaciertos,intentos):
         return False
     else:
         return True
+def diccionario_gana_maquina(diccionario_jugadores):
+    """creamos diccionario para pasar los datos mas facil al diccionario de resultados, a diferencia del anterior este
+    contiene a todos los jugadores"""
+    dicc_jugadores = {}
+    for jugador in diccionario_jugadores:
+            dicc_jugadores[jugador] = [diccionario_jugadores[jugador][2], diccionario_jugadores[jugador][3],
+                                             diccionario_jugadores[jugador][4]]
+    return dicc_jugadores
 
 def diccionario_ganador_jugador(clave,diccionario_jugadores):
     """creo diccionario de los perdedores para ordenarlos"""
     dicc_otros_jugadores = {}
     for jugador in diccionario_jugadores:
         if jugador != clave:
-            dicc_otros_jugadores[jugador] = [diccionario_jugadores[jugador][2],diccionario_jugadores[jugador][3],diccionario_jugadores[jugador][4]]
+            dicc_otros_jugadores[jugador] = [diccionario_jugadores[jugador][2], diccionario_jugadores[jugador][3],
+                                             diccionario_jugadores[jugador][4]]
     return dicc_otros_jugadores
 
 def diccionario_gana_maquina(diccionario_jugadores):
     """diccionario que si gana la maquina despues le pasa los puntos al diccionario resultados"""
     dicc_resultados = {}
     for jugador in diccionario_jugadores:
-        dicc_resultados[jugador] = [diccionario_jugadores[jugador][2],diccionario_jugadores[jugador][3],diccionario_jugadores[jugador][4]]
+        dicc_resultados[jugador] = [diccionario_jugadores[jugador][2], diccionario_jugadores[jugador][3],
+                                    diccionario_jugadores[jugador][4]]
     return dicc_resultados
 
 def creacion_diccionario_resultados(diccionario_jugadores):
@@ -2532,38 +2542,6 @@ def creacion_diccionario_resultados(diccionario_jugadores):
         dicc_resultados[jugador] = [0,0,0]
     return dicc_resultados
 
-def ordenPuntaje(dicJugadoresPuntajes):
-    """En caso de que gane la maquina, devuelve diccionario ordenado segun mejor puntaje"""
-    dicJugadoresPuntajes = dict(sorted(dicJugadoresPuntajes.items(), key=lambda x: x[1], reverse= True))
-    return dicJugadoresPuntajes
-
-def ordenNuevo(dicJugadoresPuntajesOrdenados):
-    """En caso de que gane la maquina, devuelve diccionario con orden para nueva ronda"""
-    jugadores = list(dicJugadoresPuntajesOrdenados.keys())
-    orden = range(1, len(dicJugadoresPuntajesOrdenados) + 1)
-    nuevoOrden = dict(zip(jugadores, orden))
-    print("El nuevo orden es:")
-    for clave, valor in nuevoOrden.items():
-        print("El jugador", clave, "jugara en la posicion", valor)
-    return nuevoOrden
-
-def eliminarGanadorDeDiccPerdedores(diccionarioPerdedores, diccionarioGanador):
-    """Elimina al ganador del diccionario de perdedores"""
-    ganador = list(diccionarioGanador.keys())
-    diccionarioPerdedores.pop(ganador[0])
-    return diccionarioPerdedores
-
-def ordenGanadorMasPerdedor(diccionarioGanador, diccionarioPerdedores):
-    """Otorga diccionario con jugadores y su nuevo orden en caso de que haya un ganador y quieran volver a jugar"""
-    diccionarioPerdedores = dict(sorted(diccionarioPerdedores.items(), key=lambda x: x[1], reverse= True))
-    nuevoDiccionario = diccionarioGanador.update(diccionarioPerdedores)
-    jugadores = list(nuevoDiccionario.keys())
-    orden = range(1, len(nuevoDiccionario) + 1)
-    nuevoOrden = dict(zip(jugadores, orden))
-    print("El nuevo orden es:")
-    for clave, valor in nuevoOrden.items():
-        print("El jugador", clave, "jugara en la posicion", valor)
-    return nuevoOrden
 
 def variable_a_diccionario(palabra,lista_aciertos,puntos,aciertos,desaciertos,letras_anteriores,intentos,clave,diccionario):
     """vuelve a asignarle los valores al diccionario del juego"""
@@ -2576,15 +2554,13 @@ def variable_a_diccionario(palabra,lista_aciertos,puntos,aciertos,desaciertos,le
     diccionario[clave][6] = intentos
     return diccionario
 
-def diccionario_suma_resultados(diccionario_jugadores,dicc_ganador,dicc_perdedores,cantidad,dicc_resultados):
-    """suma los resultados de la partida"""
-    if gana_maquina(diccionario_jugadores,cantidad):
-        dicc_gana_maquina = diccionario_gana_maquina(diccionario_jugadores)
-        dicc_resultados.update(dicc_gana_maquina)
-    else:
-        dicc_resultados.update(dicc_ganador)
-        dicc_resultados.update(dicc_perdedores)
-    return dicc_resultados
+def diccionario_suma_resultados(diccionario,diccionario_resultados):
+    for jugador in diccionario:
+        largo = len(diccionario[jugador])
+        for i in range(largo):
+            print(i)
+            diccionario_resultados[jugador][i] = diccionario_resultados[jugador][i] + diccionario[jugador][i]
+    return diccionario_resultados
 
 def impresion_de_resultados(dicc_resultados,partida):
     print(" ")
@@ -2599,3 +2575,13 @@ def impresion_de_resultados(dicc_resultados,partida):
         print("desaciertos: ",dicc_resultados[jugadores][2])
         print(" ")
     return dicc_resultados
+
+def nuevo_orden_gana_jugador(dicc_ganador,dicc_perdedores,dicc_resultados):
+    nuevo_orden ={}
+    nuevo_orden.update(dicc_ganador)
+    dicc_perdedores = dict(sorted(dicc_perdedores.items(), key=lambda x: x[1], reverse= True))
+    for jugador in dicc_perdedores:
+        nuevo_orden[jugador] = dicc_resultados[jugador]
+    return nuevo_orden
+
+
