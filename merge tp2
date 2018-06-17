@@ -12,6 +12,7 @@ def mezclarPalabras():
     for x in listaPalabras3:
         while x not in listaPalabras:
             listaPalabras = listaPalabras.append(x)
+    listaPalabras.sort()
     palabrasMezcladas.write("".join(listaPalabras))
     palabras1.close()
     palabras2.close()
