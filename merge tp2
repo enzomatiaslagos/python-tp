@@ -6,6 +6,29 @@ def mezclarPalabras():
     listaPalabras = palabras1.readlines()
     listaPalabras2 = palabras2.readlines()
     listaPalabras3 = palabras3.readlines()
+    for x in listaPalabras2:
+        while x not in listaPalabras:
+            listaPalabras = listaPalabras.append(x)
+    for x in listaPalabras3:
+        while x not in listaPalabras:
+            listaPalabras = listaPalabras.append(x)
+    palabrasMezcladas.write("".join(listaPalabras))
+    palabras1.close()
+    palabras2.close()
+    palabras3.close()
+    palabrasMezcladas.close()
+    return palabrasMezcladas
+
+LA PRIMERA ES LA QUE ME PARECE QUE ESTA BIEN, estas dos que siguen las hice por las dudas para ver que onda.
+
+def mezclarPalabras():
+    palabras1 = open("palabras1.txt","r")
+    palabras2 = open("palabras2.txt","r")
+    palabras3 = open("palabras3.txt","r")
+    palabrasMezcladas=open("palabrasMezcladas.txt", "w")
+    listaPalabras = palabras1.readlines()
+    listaPalabras2 = palabras2.readlines()
+    listaPalabras3 = palabras3.readlines()
     for x in listaPalabras and listaPalabras2 and listaPalabras3:
         x = x.rstrip("\n")
     for x in listaPalabras2:
