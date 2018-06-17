@@ -1,0 +1,51 @@
+def mezclarPalabras():
+    palabras1 = open("palabras1.txt","r")
+    palabras2 = open("palabras2.txt","r")
+    palabras3 = open("palabras3.txt","r")
+    palabrasMezcladas=open("palabrasMezcladas.txt", "w")
+    listaPalabras = palabras1.readlines()
+    listaPalabras2 = palabras2.readlines()
+    listaPalabras3 = palabras3.readlines()
+    for x in listaPalabras and listaPalabras2 and listaPalabras3:
+        x = x.rstrip("\n")
+    for x in listaPalabras2:
+        while x not in listaPalabras:
+            listaPalabras = listaPalabras.append(x)
+    for x in listaPalabras3:
+        while x not in listaPalabras:
+            listaPalabras = listaPalabras.append(x)
+    palabrasMezcladas.write(listaPalabras) #COMO AGREGO EL \N??????????
+    palabras1.close()
+    palabras2.close()
+    palabras3.close()
+    palabrasMezcladas.close()
+
+def palabrasMezcladas():
+    palabras1 = open("palabras1.txt", "r")
+    palabras2 = open("palabras2.txt", "r")
+    palabras3 = open("palabras3.txt", "r")
+    palabrasMezcladas = open("palabrasMezcladas.txt", "w")
+    listaPalabras  = []
+    linea1 = palabras1.readline()
+    while linea1 != " ":
+        linea1 = palabras1.readline() #PUEDE NO ESTAR??
+        linea1 = linea1.rstrip("\n")
+        listaPalabras = listaPalabras.append(linea1)
+    linea2 = palabras2.readline()
+    while linea2 != " ":
+        linea2 = palabras2.readline() #puede no estar???
+        linea2 = linea2.rstrip()
+        while linea2 not in listaPalabras:
+            listaPalabras = listaPalabras.append(linea2)
+    linea3 = palabras3.readline()
+    while linea3 != " ":
+        linea3 = palabras3.readline() #puede no estar???
+        linea3 = linea3.rstrip("\n")
+        while linea3 not in listaPalabras:
+            listaPalabras = listaPalabras.append(linea3)
+    palabrasMezcladas.write(listaPalabras)
+    palabras1.close()
+    palabras2.close()
+    palabras3.close()
+    palabrasMezcladas.close()
+    return palabrasMezcladas
