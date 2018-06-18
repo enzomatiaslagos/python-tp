@@ -1,0 +1,51 @@
+def apareo(lista):
+
+    reemplazar=open("reemplazar.csv","r")
+    listaFinal = []
+
+    for palabra in lista:
+
+        for linea in reemplazar:
+
+            linea = linea.strip("\n")
+            old,new = linea.split(",")
+
+            if palabra.find(old) != -1:
+
+                palabra = palabra.replace(old,new)
+
+        reemplazar.seek(0)
+        listaFinal.append(palabra)
+
+    reemplazar.close()
+
+    return print(listaFinal)
+
+
+def abrirArchivo (nombreArchivo):
+    archivo = open(nombreArchivo, "r")
+    return archivo
+
+def texto(archivo):
+    lista_valida = []
+    for linea in archivo:
+        linea=linea.rstrip("BARRAn")
+        lista=linea.split(" ")
+        for palabra in lista:
+            valida = True
+            for caracter in palabra:
+                if caracter.isalpha() == False:
+                    valida = False
+            if valida and not in lista_valida:
+                lista_valida.append(palabra)
+    archivo.close()
+    return sorted(lista_valida)
+
+def cargaPalabrasTextosIniciales(lista_valida,numerotexto):
+    archivo=open(numerotexto, "w")
+    for palabra in lista_valida:
+
+    for palabra in lista_valida:
+        archivo.write(palabra,"BARRAn")
+
+    archivo.close()
