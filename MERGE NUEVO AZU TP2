@@ -1,0 +1,41 @@
+def leer_textos (archivo):
+        linea = archivo.readline().rstrip("\n")
+        if linea:
+            return linea
+        else:
+            return fin_archivo
+
+def grabar_palabras(archivo, linea):
+    archivo.write(linea + "\n")
+
+def merge():
+    palabras1 = open("palabras1.txt", "r+")
+    palabras2 = open("palabras2.txt", "r")
+    palabras3 = open("palabras3.txt", "r")
+
+    palabra1 = leer_textos(palabras1)
+    palabra2 = leer_textos(palabras2)
+    palabra3 = leer_textos(palabras3)
+
+    while palabra2 != fin_archivo:
+       while palabra2 != palabra1 and palabra1 != fin_archivo:
+            palabra1 = leer_textos(palabras1)
+        if palabra1 == fin_archivo:
+            grabar_palabras(palabras1,palabra2)
+            palabra2 = leer_textos(palabras2)
+        else:
+            palabra2 = leer_textos(palabras2)
+
+    while palabra3 != fin_archivo:
+        while palabra3 != palabra1 and palabra1 != fin_archivo:
+            palabra1 = leer_textos(palabras1)
+        if palabra1 == fin_archivo:
+            grabar_palabras(palabras1, palabra3)
+            palabra3 = leer_textos(palabra3)
+        else:
+            palabra3 = leer_textos(palabra3)
+    
+    palabras1.close()
+    palabras2.close()
+    palabras3.close()
+    return palabras1
