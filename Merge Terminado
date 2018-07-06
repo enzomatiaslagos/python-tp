@@ -1,0 +1,68 @@
+def seguirenlinea(uno,dos,tres):
+
+    if uno<=dos and uno<=tres and uno != "Zzz":
+        return True
+    else:
+        return False
+
+
+def comparacion(lineaComparar,lineaACompararUno,lineaACompararDos,file,palabras):
+
+    if lineaComparar != lineaACompararUno and lineaComparar != lineaACompararDos:
+
+        palabras.write(lineaComparar+"\n")
+        lineaComparar = file.readline().rstrip("\n")
+
+    elif lineaComparar == lineaACompararUno or lineaComparar == lineaACompararDos:
+
+        lineaComparar = file.readline().rstrip("\n")
+
+    return lineaComparar
+
+def seguirenmerge(lineaUno,lineaDos,lineaTres):
+
+    if lineaUno != "Zzz":
+
+        return True
+
+    elif lineaDos != "Zzz":
+
+        return True
+
+    elif lineaTres != "Zzz":
+
+        return True
+
+    else:
+
+        return False
+
+def merge():
+    fileUno = open("Palabras_Texto_1.txt")
+    fileDos = open("Palabras_Texto_2.txt")
+    fileTres = open("Palabras_Texto_3.txt")
+    lineaUno = fileUno.readline().rstrip("\n")
+    lineaDos = fileDos.readline().rstrip("\n")
+    lineaTres = fileTres.readline().rstrip("\n")
+    palabras = open("Palabras.txt","w")
+    while seguirenmerge(lineaUno,lineaDos,lineaTres):
+
+        while seguirenlinea(lineaUno,lineaDos,lineaTres):
+
+            lineaUno = comparacion(lineaUno,lineaDos,lineaTres,fileUno,palabras)
+
+        while seguirenlinea(lineaDos,lineaUno,lineaTres):
+
+            lineaDos = comparacion(lineaDos,lineaUno,lineaTres,fileDos,palabras)
+
+        while seguirenlinea(lineaTres,lineaUno,lineaDos):
+
+            lineaTres = comparacion(lineaTres,lineaDos,lineaUno,fileTres,palabras)
+
+
+    fileUno.close()
+    fileDos.close()
+    fileTres.close()
+    palabras.close()
+
+merge()
