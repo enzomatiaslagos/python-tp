@@ -1,0 +1,48 @@
+Chicos, un par de cosas: ahi ya les subi a github la funcion para que las palabras queden ordenadas, la de agregar zzz y arregle la de 
+texto(lo unico que hice fue borrar la validacion que no servia para nada). Lo corri, funciono y como los nombres nunca los pasa a
+mayusculas digo a ver voy a corregir eso. La cosa es que en la funcion jugadores (linea 17), hay un seguir = True que no 
+entiendo para que sirve, onda no tiene sentido  esa validacion creo. Despues si pueden hechenle un ojo. Yo lo que pensaba es dejar 
+la misma del tp 1 que pasa los nombres a mayusculas y hace lo mismo y no da tantas vueltas. Pero bueno capaz lo pusieron asi por algo. 
+Naaaada eso
+
+def ordenarPalabras():
+    texto = open('palabrasMezcladas.txt', 'r').read()
+    palabras = " ".join(sorted(texto.split()))
+    nuevoTexto = open('palabrasMezcladas.txt', 'w')
+    nuevoTexto.write(palabras)
+
+def agregarZZZ():
+    txt1 = open('palabras1.txt', 'a').write("\nzzz")
+    txt2 = open('palabras2.txt', 'a').write("\nzzz")
+    txt3 = open('palabras3.txt', 'a').write("\nzzz")
+
+def texto(archivo, long_palabra_min):
+    lista_valida = []
+    reemplazar = open('reemplazar.csv','r')
+    for linea in archivo:
+        linea=linea.rstrip("\n")
+        linea= linea.upper()
+        lista=linea.split(" ")
+        for palabra in lista:
+            palabra = apareo(palabra,reemplazar)
+            if len(palabra)> (long_palabra_min-1):
+                lista_valida.append(palabra)
+    archivo.close()
+    reemplazar.close()
+    return lista_valida
+
+"""POR ESTA FUNCION DIGO REEMPLAZARLA"""
+
+def jugadores(cantJugadores):
+    """Devuelve diccionario con el nombre de los jugadores y su orden de juego (que fue dado de manera aleatoria)""" #ENZO
+    nombreJugadores = []
+    while len(nombreJugadores) != cantJugadores:
+        nombreJugadores.append(str(input("Ingrese nombre y apellido:")).upper())
+    orden = range(1, cantJugadores + 1)
+    import random
+    nombresAleatorios = random.sample(nombreJugadores,
+                                      cantJugadores)  # Da un orden aleatorio en que fueron ingresados los nombres
+    jugadoresYSuOrden = dict(zip(nombresAleatorios, orden))
+    for clave, valor in jugadoresYSuOrden.items():
+        print("El jugador", clave, "jugara en la posicion", valor)
+    return jugadoresYSuOrden
